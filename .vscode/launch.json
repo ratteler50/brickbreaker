@@ -10,7 +10,7 @@
         "-lc"
       ],
       "args": [
-        "SIM=\"${env:PLAYDATE_SDK_PATH}/bin/Playdate Simulator\"; [[ -x $SIM ]] || SIM=\"/Users/dlorant/Developer/PlaydateSDK/bin/Playdate Simulator\"; [[ -x $SIM ]] || SIM=\"/Applications/PlaydateSDK/bin/Playdate Simulator\"; if [[ ! -x $SIM ]]; then echo 'Playdate Simulator not found. Set PLAYDATE_SDK_PATH or install SDK to /Applications or /Users/dlorant/Developer/PlaydateSDK' >&2; exit 127; fi; /usr/bin/open -na \"$SIM\" --args ${workspaceFolder}/Build/BrickBreaker.pdx"
+        "SIM=\"${env:PLAYDATE_SDK_PATH}/bin/Playdate Simulator.app\"; [[ -d $SIM ]] || SIM=\"/Users/dlorant/Developer/PlaydateSDK/bin/Playdate Simulator.app\"; [[ -d $SIM ]] || SIM=\"/Applications/PlaydateSDK/bin/Playdate Simulator.app\"; if [[ ! -d $SIM ]]; then echo 'Playdate Simulator not found. Set PLAYDATE_SDK_PATH or install SDK to /Applications or /Users/dlorant/Developer/PlaydateSDK' >&2; exit 127; fi; /usr/bin/open -na \"$SIM\" --args ${workspaceFolder}/Build/BrickBreaker.pdx"
       ],
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "Playdate: Build",
