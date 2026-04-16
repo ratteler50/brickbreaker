@@ -4,6 +4,18 @@ import "CoreLibs/timer"
 import "CoreLibs/sprites"
 local gfx <const> = playdate.graphics
 local GameLogic = import "game-logic"
+local snd <const> = playdate.sound
+
+-- Sound Effects Setup
+local paddleSynth = snd.synth.new(snd.kWaveSquare)
+local brickSynth = snd.synth.new(snd.kWaveSquare)
+local missSynth = snd.synth.new(snd.kWaveSawtooth)
+local startSynth = snd.synth.new(snd.kWaveTriangle)
+
+paddleSynth:setVolume(0.5)
+brickSynth:setVolume(0.4)
+missSynth:setVolume(0.5)
+startSynth:setVolume(0.6)
 
 -- Game constants
 local SCREEN_WIDTH <const> = 400
@@ -134,6 +146,7 @@ end
 
 -- Start new game
 local function startGame()
+  startSynth:playNote("C5", 1, 0.3)
   initBricks()
   ball.x = CENTER_X
   ball.y = CENTER_Y
@@ -160,6 +173,7 @@ local function updateBall()
     local hitPaddle = GameLogic.checkPaddleCollision(ballAngle, paddleAngle, PADDLE_LENGTH, PADDLE_RADIUS)
 
     if hitPaddle then
+      paddleSynth:playNote("C4", 1, 0.1)
       -- Calculate reflection and spin based on curved paddle surface
       ball.vx, ball.vy = GameLogic.calculatePaddleBounce(
         ball.x, ball.y, ball.vx, ball.vy, 
@@ -171,6 +185,7 @@ local function updateBall()
       ball.y = CENTER_Y + (dy / distFromCenter) * (PADDLE_RADIUS - BALL_RADIUS - 1)
     else
       -- Missed paddle - lose life
+      missSynth:playNote("F2", 1, 0.4)
       lives = lives - 1
       if lives <= 0 then
         gameState = "lose"
@@ -198,6 +213,7 @@ local function updateBall()
       if dist < BALL_RADIUS + brick.height / 2 then
         brick.active = false
         score = score + 10
+        brickSynth:playNote("G4", 1, 0.1)
 
         -- Simple reflection
         ball.vx = -ball.vx
