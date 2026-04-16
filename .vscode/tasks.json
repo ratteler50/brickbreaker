@@ -1,0 +1,90 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Playdate: Build",
+      "type": "shell",
+      "command": "rm -r Build &&  mkdir -p Build && pdc Source Build/BrickBreaker.pdx",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/zsh",
+          "args": ["-c"]
+        },
+        "env": {
+          "PATH": "/Users/dlorant/Developer/PlaydateSDK/bin:${env:PATH}"
+        }
+      },
+      "problemMatcher": [
+        {
+          "owner": "lua",
+          "pattern": {
+            "regexp": "^(.+):(\\d+):(\\d+): (error|warning): (.*)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "severity": 4,
+            "message": 5
+          }
+        }
+      ]
+    },
+    {
+      "label": "Playdate: Run Simulator",
+      "type": "shell",
+      "command": "open -a 'Playdate Simulator' Build/BrickBreaker.pdx",
+      "dependsOn": [
+        "Playdate: Build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/zsh",
+          "args": ["-c"]
+        }
+      }
+    },
+    {
+      "label": "Playdate: Clean",
+      "type": "shell",
+      "command": "rm -rf Build/BrickBreaker.pdx",
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/zsh",
+          "args": ["-c"]
+        }
+      }
+    },
+    {
+      "label": "Playdate: Run Tests",
+      "type": "shell",
+      "command": "mv Source/main.lua Source/main.lua.bak && mv Source/main-test.lua Source/main.lua && pdc Source Build/BrickBreakerTests.pdx && mv Source/main.lua Source/main-test.lua && mv Source/main.lua.bak Source/main.lua && open -a 'Playdate Simulator' Build/BrickBreakerTests.pdx",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "shell": {
+          "executable": "/bin/zsh",
+          "args": ["-c"]
+        },
+        "env": {
+          "PATH": "/Users/dlorant/Developer/PlaydateSDK/bin:${env:PATH}"
+        }
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    }
+  ]
+}

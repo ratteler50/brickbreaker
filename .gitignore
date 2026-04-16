@@ -1,0 +1,8 @@
+# Playdate build artifacts
+Build/
+*.pdx
+*.pdi
+*.pdx.zip
+
+# macOS
+.DS_Store

@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Playdate: Launch Simulator",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": [
+        "-lc"
+      ],
+      "args": [
+        "SIM=\"${env:PLAYDATE_SDK_PATH}/bin/Playdate Simulator\"; [[ -x $SIM ]] || SIM=\"/Users/dlorant/Developer/PlaydateSDK/bin/Playdate Simulator\"; [[ -x $SIM ]] || SIM=\"/Applications/PlaydateSDK/bin/Playdate Simulator\"; if [[ ! -x $SIM ]]; then echo 'Playdate Simulator not found. Set PLAYDATE_SDK_PATH or install SDK to /Applications or /Users/dlorant/Developer/PlaydateSDK' >&2; exit 127; fi; /usr/bin/open -na \"$SIM\" --args ${workspaceFolder}/Build/BrickBreaker.pdx"
+      ],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Playdate: Build",
+      "env": {
+        "PLAYDATE_SDK_PATH": "/Users/dlorant/Developer/PlaydateSDK"
+      }
+    }
+  ]
+}
